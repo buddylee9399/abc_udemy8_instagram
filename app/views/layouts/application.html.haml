@@ -1,0 +1,37 @@
+!!! 5
+%html
+	%head
+		%title Instagramm
+		%meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+		= csrf_meta_tags
+		= csp_meta_tag
+		%script{:crossorigin => "anonymous", :integrity => "sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=", :src => "https://code.jquery.com/jquery-3.6.1.js"}
+		%script{:src => "https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"}	
+		%script{:src => "https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"}
+		%script{:src => "https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"}	
+		= stylesheet_link_tag "application", "data-turbo-track": "reload"
+		= javascript_importmap_tags
+
+	%body
+		%nav.navbar.navbar-inverse
+			.container
+				.navbar-brands= link_to "Instagramm", root_path
+			
+				- if user_signed_in?
+					%ul.nav.navbar-nav.navbar-left
+						%li= link_to "Gram It!", new_pic_path
+						%li= link_to "Settings", edit_user_registration_path
+						%li= link_to "Sign Out", destroy_user_session_path, method: :delete
+
+				- else
+					%ul.nav.navbar-nav.navbar-left
+						%li= link_to "Join", new_user_registration_path
+						%li= link_to "Log In", new_user_session_path
+
+		.container
+			-flash.each do |name, msg|
+				=content_tag :div, msg, class: "alert alert-info"
+
+			= yield
+
+		
