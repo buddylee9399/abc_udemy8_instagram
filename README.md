@@ -44,7 +44,7 @@ $(document).on('turbo:load', function() {
 ```
 
 ## acts as votable
-- add a put patch
+- add a put 
 
 ```
   resources :pics do
